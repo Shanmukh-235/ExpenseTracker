@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <h1>Expense Tracker</h1>
+
+    <!-- Expense Form -->
+    <form id="expenseForm">
+        <input type="hidden" id="expenseId">
+        <input type="number" id="amount" placeholder="Amount" required>
+        <input type="text" id="category" placeholder="Category" required>
+        <input type="text" id="description" placeholder="Description">
+        <input type="date" id="date" required>
+        <button type="submit">Save</button>
+    </form>
+
+    <hr>
+
+    <!-- Filter Section -->
+    <div class="filters">
+        <label for="filterMonth">Month:</label>
+        <input type="month" id="filterMonth">
+
+        <label for="filterCategory">Category:</label>
+        <select id="filterCategory">
+            <option value="">All</option>
+            <option value="Food">Food</option>
+            <option value="Travel">Travel</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Bills">Bills</option>
+        </select>
+
+        <button onclick="applyFilters()">Apply Filters</button>
+        <button onclick="clearFilters()">Clear</button>
+    </div>
+
+    <hr>
+
+    <h3>Total Expenses: <span id="total-expenses">0</span></h3>
+
+    <!-- Expense Table -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="expense-table-body"></tbody>
+    </table>
+
+    <!-- Chart Container -->
+    <div class="chart-container">
+        <canvas id="expenseChart"></canvas>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

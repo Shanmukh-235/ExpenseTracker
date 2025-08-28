@@ -1,0 +1,110 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background: #f8f9fa;
+  color: #333;
+}
+
+h1, h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+form {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+form input {
+  padding: 8px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 8px 14px;
+  margin: 4px;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #444;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 10px 0;
+  padding: 12px 18px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  /* box-shadow: 0 2px 6px rgba(0,0,0,0.1); */
+}
+
+.filters label {
+  font-weight: 600;
+  color: #333;
+  margin-right: 5px;
+}
+
+.filters input,
+.filters select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.filters input:focus,
+.filters select:focus {
+  border-color: #36A2EB;
+  box-shadow: 0 0 6px rgba(54,162,235,0.3);
+}
+
+.filters button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #333;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.filters button:hover {
+  background: #000;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: #fff;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background: #f1f1f1;
+}
+
+#expenseChart {
+  display: block;
+  margin: 20px auto;
+  max-width: 400px;  /* reduced size */
+  max-height: 400px;
+}
