@@ -28,7 +28,7 @@ public class ExpenseService {
         expenseRepository.deleteById(id);
     }
 
-    // ✅ Correct place for updateExpense
+    // ✅Correct place for updateExpense
     public Expense updateExpense(Long id, Expense expense) {
         Expense existing = expenseRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Expense not found with id " + id));

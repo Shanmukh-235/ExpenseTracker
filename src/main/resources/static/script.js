@@ -95,61 +95,15 @@ function editExpense(id, amount, category, description, date) {
   document.getElementById("date").value = date;
 }
 
-// Draw pie chart for category-wise expenses
-function drawChart(categoryMap) {
-  const ctx = document.getElementById("expenseChart").getContext("2d");
-  const labels = Object.keys(categoryMap);
-  const values = Object.values(categoryMap);
-
-  if (chart) {
-    chart.destroy(); // Clear old chart before redrawing
-  }
-
-  chart = new Chart(ctx, {
-    type: "pie",
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          data: values,
-          backgroundColor: [
-            "#FF6384", // pink-red
-            "#36A2EB", // blue
-            "#FFCE56", // yellow
-            "#4BC0C0", // teal
-            "#9966FF", // purple
-            "#FF9F40", // orange
-            "#00A36C", // emerald green
-            "#C71585", // medium violet red
-            "#20B2AA", // light sea green
-            "#FFD700", // gold
-            "#8B0000", // dark red
-            "#4682B4", // steel blue
-            "#2E8B57", // sea green
-            "#708090", // slate gray
-            "#FF7F50", // coral
-          ],
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { position: "bottom" },
-      },
-    },
-  });
-}
-
 // Initial load
 fetchExpenses();
 
-let allExpenses = []; // keep a copy of all data
+let allExpenses = []; // store globally
 
 async function fetchExpenses() {
   const res = await fetch(API_URL);
-  allExpenses = await res.json(); // store globally
-  renderExpenses(allExpenses);
+  allExpenses = await res.json(); // fetch ALL
+  renderExpenses(allExpenses); // render ALL
 }
 
 function renderExpenses(data) {
@@ -195,8 +149,15 @@ function applyFilters() {
     if (monthValue) {
       matchMonth = exp.date.startsWith(monthValue); // "2025-08"
     }
+
     if (categoryValue) {
-      matchCategory = exp.category === categoryValue;
+      if (categoryValue === "Others") {
+        matchCategory = !["Food", "Travel", "Shopping", "Bills"].includes(
+          exp.category
+        );
+      } else {
+        matchCategory = exp.category === categoryValue;
+      }
     }
 
     return matchMonth && matchCategory;
@@ -211,3 +172,48 @@ function clearFilters() {
   document.getElementById("filterCategory").value = "";
   renderExpenses(allExpenses);
 }
+
+// Generates PDF Report
+async function printPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  // Title
+  doc.setFontSize(16);
+  doc.text("Filtered Expense Report", 14, 15);
+
+  // Total Expenses
+  let total = document.getElementById("total-expenses").innerText;
+  doc.setFontSize(12);
+  doc.text("Total Expenses: " + total, 14, 25);
+
+  // Collect table data
+  let tableBody = document.getElementById("expense-table-body");
+  let rows = tableBody.querySelectorAll("tr");
+
+  let body = [];
+  rows.forEach((row) => {
+    let cells = row.querySelectorAll("td");
+    body.push([
+      cells[0].innerText,
+      cells[1].innerText,
+      cells[2].innerText,
+      cells[3].innerText,
+      cells[4].innerText,
+    ]);
+  });
+
+  // Generate table
+  doc.autoTable({
+    head: [["#", "Date", "Category", "Amount", "Description"]],
+    body: body,
+    startY: 35,
+    theme: "grid",
+    styles: { fontSize: 10 },
+    headStyles: { fillColor: [54, 162, 235] },
+  });
+
+  // Save PDF
+  doc.save("expense-report.pdf");
+}
+

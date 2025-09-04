@@ -21,7 +21,6 @@ public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private Double amount;
     private String category;
     private String description;

@@ -24,6 +24,7 @@
     <hr>
 
     <!-- Filter Section -->
+    <!-- Filter Section -->
     <div class="filters">
         <label for="filterMonth">Month:</label>
         <input type="month" id="filterMonth">
@@ -35,17 +36,25 @@
             <option value="Travel">Travel</option>
             <option value="Shopping">Shopping</option>
             <option value="Bills">Bills</option>
+            <option value="Others">Others</option> <!-- NEW -->
         </select>
 
         <button onclick="applyFilters()">Apply Filters</button>
         <button onclick="clearFilters()">Clear</button>
+        <button onclick="printPDF()">Print</button> <!-- NEW -->
     </div>
+
 
     <hr>
 
-    <h3>Total Expenses: <span id="total-expenses">0</span></h3>
-
+    
+    <!-- Chart Container -->
+    <div class="chart-container">
+        <canvas id="expenseChart"></canvas>
+    </div>
+    
     <!-- Expense Table -->
+    <h3>Total Expenses: <span id="total-expenses">0</span></h3>
     <table border="1">
         <thead>
             <tr>
@@ -60,12 +69,10 @@
         <tbody id="expense-table-body"></tbody>
     </table>
 
-    <!-- Chart Container -->
-    <div class="chart-container">
-        <canvas id="expenseChart"></canvas>
-    </div>
-
     <script src="script.js"></script>
+    <script src="chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>  <!--   jsPDF - lightweight client-side PDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 </body>
 
 </html>
